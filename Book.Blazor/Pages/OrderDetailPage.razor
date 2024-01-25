@@ -1,0 +1,46 @@
+﻿@page "/Orderdetail/{OrderId}"
+
+<div class="mb-5">
+    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ExitToApp" Color="Color.Primary" OnClick="Back">Back</MudButton>
+</div>
+
+@if (orderDetails == null)
+{
+    <MudText>Loading..</MudText>
+}
+else
+{
+    <div class="d-flex justify-end">
+        <a Href="/createorderdetail">
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Create" Color="Color.Primary">Create</MudButton>
+        </a>
+    </div>
+    <MudTable @ref="@_table" RowsPerPage="5" Items="@orderDetails" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+        <HeaderContent>
+            <MudTh>User Name</MudTh>
+            <MudTh>Product Name</MudTh>
+            <MudTh>Price</MudTh>
+            <MudTh>Quantity</MudTh>
+            <MudTh>Control</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Sign" Class="mr-5">@context.FullName</MudTd>
+                <MudTd DataLabel="Sign" Class="mr-5">@context.ProductName</MudTd>
+                <MudTd DataLabel="Sign" Class="mr-5">@context.Price</MudTd>
+                <MudTd DataLabel="Sign" Class="mr-5">@context.Quantity</MudTd>
+                <MudTd DataLabel="Sign">
+                    <a href="/updateorder/@context.OrderDetailId">
+                        <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Update" Color="Color.Warning">Update</MudButton>
+                    </a>
+                    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Update" Color="Color.Error" @onclick="()=>Delete(context.OrderDetailId)">Delete</MudButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <div class="d-flex justify-center">
+                    <MudPagination SelectedChanged="PageChanged" Count="@((_table.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)" Class="pa-4" />
+                </div>
+            </PagerContent>
+        </MudTable>
+}
+
+

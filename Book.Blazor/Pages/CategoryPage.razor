@@ -1,0 +1,42 @@
+﻿@page "/Category"
+
+
+@if (categories == null)
+{
+    <MudText>Loading..</MudText>
+}
+else
+{
+
+    <div class="d-flex justify-end">
+        <a Href="/createcategory">
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Create" Color="Color.Primary">Create</MudButton>
+        </a>
+    </div>
+    // @ref="@_table" để pagination, RowsPerPage= số hàng muốn hiện
+    <MudTable @ref="@_table" RowsPerPage="5" Items="@categories" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+        <HeaderContent>
+            <MudTh>Name</MudTh>
+            <MudTh>Status</MudTh>
+            <MudTh>Control</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+                <MudTd DataLabel="Nr">@context.CategoryName</MudTd>
+                <MudTd DataLabel="Sign" Class="mr-5">@context.Status</MudTd>
+                <MudTd DataLabel="Sign">
+                    <a href="/categorydetail/@context.CategoryId">
+                        <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Details" Color="Color.Info">Details</MudButton>
+                    </a>
+                    <a href="/updatecategory/@context.CategoryId">
+                        <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Update" Color="Color.Warning">Update</MudButton>
+                    </a>
+                    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Update" Color="Color.Error" @onclick="()=>Delete(context.CategoryId)">Delete</MudButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <div class="d-flex justify-center">
+                    <MudPagination SelectedChanged="PageChanged" Count="@((_table.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)" Class="pa-4" />
+                </div>
+            </PagerContent>
+        </MudTable>
+}

@@ -1,0 +1,63 @@
+﻿@page "/Product"
+
+@if (products == null)
+{
+    <MudText>Loading..</MudText>
+    <MudTable @ref="@_table" RowsPerPage="5" Items="@products" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+        <HeaderContent>
+            <MudTh>Name</MudTh>
+            <MudTh>Description</MudTh>
+            <MudTh>Price</MudTh>
+            <MudTh>SalePrice</MudTh>
+            <MudTh>status</MudTh>
+            <MudTh>CategoryName</MudTh>
+            <MudTh>Control</MudTh>
+        </HeaderContent>
+    </MudTable>
+
+}
+else
+{
+    <div class="d-flex justify-end">
+        <a Href="/createproduct">
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Create" Color="Color.Primary">Create</MudButton>
+        </a>
+    </div>
+    <MudTable @ref="@_table" RowsPerPage="5" Items="@products" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+        <HeaderContent>
+            <MudTh>Name</MudTh>
+            <MudTh>Description</MudTh>
+            <MudTh>Price</MudTh>
+            <MudTh>SalePrice</MudTh>
+            <MudTh>status</MudTh>
+            <MudTh>CategoryName</MudTh>
+            <MudTh>Control</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Nr">@context.ProductName</MudTd>
+                <MudTd DataLabel="Sign" Class="mr-5">@context.Description</MudTd>
+                <MudTd DataLabel="Sign" Class="mr-5">@context.Price</MudTd>
+                <MudTd DataLabel="Sign" Class="mr-5">@context.SalePrice</MudTd>
+                <MudTd DataLabel="Sign" Class="mr-5">@context.status</MudTd>
+                <MudTd DataLabel="Sign" Class="mr-5">@context.CategoryName</MudTd>
+                <MudTd DataLabel="Sign">
+                    <a href="/productdetail/@context.ProductId">
+                        <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Details" Color="Color.Info">Details</MudButton>
+                    </a>
+                    <a href="/updateproduct/@context.ProductId">
+                        <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Update" Color="Color.Warning">Update</MudButton>
+                    </a>
+                    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Update" Color="Color.Error" @onclick="()=>Delete(context.ProductId)">Delete</MudButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <div class="d-flex justify-center">
+                    <MudPagination SelectedChanged="PageChanged" Count="@((_table.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)" Class="pa-4" />
+                </div>
+            </PagerContent>
+        </MudTable>
+}
+
+
+
+

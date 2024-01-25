@@ -1,0 +1,33 @@
+﻿@page "/updateorder/{OrderId}"
+@using Book.Blazor.IServices
+
+<div class="mb-5">
+    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ExitToApp" Color="Color.Primary" OnClick="Back">Back</MudButton>
+</div>
+
+<h3>Product Update Page</h3>
+
+@using System.ComponentModel.DataAnnotations
+
+<EditForm Model="@request" OnValidSubmit="Update">
+    <DataAnnotationsValidator />
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="Total"
+                                  @bind-Value="request.Total" />
+                    <MudTextField Label="Datetime"
+                                  @bind-Value="request.DateTime" />
+                    <MudTextField Label="Order Status"
+                                  @bind-Value="request.OrderStatus" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Update</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+
+    </MudGrid>
+</EditForm>
+

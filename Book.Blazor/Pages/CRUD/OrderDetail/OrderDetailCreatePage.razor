@@ -1,0 +1,31 @@
+﻿@page "/createorderdetail"
+
+
+<div class="mb-5">
+    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ExitToApp" Color="Color.Primary" OnClick="Back">Back</MudButton>
+</div>
+
+<h3>Order Detail Create Page</h3>
+
+<EditForm Model="@request" OnValidSubmit="CreateNew">
+    <DataAnnotationsValidator />
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="Quantity"
+                                  @bind-Value="request.Quantity" For="@(() => request.Quantity)" />
+                    <MudTextField Label="Price"
+                                  @bind-Value="request.Price" For="@(() => request.Price)" />
+                    <MudTextField Label="Product ID"
+                                  @bind-Value="request.ProductId" For="@(() => request.ProductId)" />
+                    <MudTextField Label="Order ID"
+                                  @bind-Value="request.OrderId" For="@(() => request.OrderId)" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Create</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>

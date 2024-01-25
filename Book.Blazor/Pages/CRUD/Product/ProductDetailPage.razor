@@ -1,0 +1,45 @@
+﻿@page "/productdetail/{ProductId}"
+@using Book.Blazor.IServices
+@using Book.Models.Dtos
+
+@if (ProductDto == null)
+{
+    <MudText>Loading...</MudText>
+}
+else
+{
+    <div class="mb-5">
+        <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ExitToApp" Color="Color.Primary" OnClick="Back">Back</MudButton>
+    </div>
+
+    <h3>Product Detail Page</h3>
+
+    <div class="mt-5">
+        <MudText>
+            Product ID: @ProductDto.ProductId
+        </MudText>
+        <MudText>
+            Product Name: @ProductDto.ProductName
+        </MudText>
+        <MudText>
+            Category Name: @ProductDto.CategoryName
+        </MudText>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string ProductId { get; set; }
+    [Inject] IProductService _ser { get; set; }
+    [Inject] NavigationManager _navigationManager { get; set; }
+    ProductDto ProductDto;
+
+    protected async override Task OnInitializedAsync()
+    {
+        ProductDto = await _ser.GetById(Guid.Parse(ProductId));
+    }
+    private void Back()
+    {
+        _navigationManager.NavigateTo("https://localhost:44398/Product");
+    }
+}

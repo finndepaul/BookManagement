@@ -1,0 +1,39 @@
+﻿@page "/categorydetail/{categoryId}"
+@using Book.Blazor.IServices
+@using Book.Models.Dtos
+
+@if (category == null)
+{
+    <MudText>Loading...</MudText>
+}
+else
+{
+    <div class="mb-5">
+        <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ExitToApp" Color="Color.Primary" OnClick="Back">Back</MudButton>
+    </div>
+
+    <h3>Category Detail Page</h3>
+
+    <div class="mt-5">
+        <MudText>
+            Category ID: @category.CategoryId
+        </MudText>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string categoryId { get; set; }
+    [Inject] ICategoryService _ser { get; set; }
+    [Inject] NavigationManager _navigationManager { get; set; }
+    CategoryDto category;
+
+    protected override async Task OnInitializedAsync()
+    {
+        category = await _ser.GetById(Guid.Parse(categoryId));
+    }
+    private void Back()
+    {
+        _navigationManager.NavigateTo("https://localhost:44398/category");
+    }
+}

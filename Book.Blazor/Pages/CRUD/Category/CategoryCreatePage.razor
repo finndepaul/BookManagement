@@ -1,0 +1,24 @@
+﻿@page "/createcategory"
+
+<div class="mb-5">
+    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ExitToApp" Color="Color.Primary" OnClick="Back">Back</MudButton>
+</div>
+
+<h3>Category Create Page</h3>
+
+<EditForm Model="@request" OnValidSubmit="CreateNew">
+    <DataAnnotationsValidator />
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="Category Name" HelperText="Max. 8 characters"
+                                  @bind-Value="request.CategoryName" For="@(() => request.CategoryName)" />                
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Create</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>      
+    </MudGrid>
+</EditForm>

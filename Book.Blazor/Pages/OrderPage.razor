@@ -1,0 +1,47 @@
+﻿@page "/Order"
+
+@if (orders == null)
+{
+    <MudText>Loading..</MudText>
+}
+else
+{
+    <div class="d-flex justify-end">
+        <a Href="/createorder">
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Create" Color="Color.Primary">Create</MudButton>
+        </a>
+    </div>
+    <MudTable @ref="@_table" RowsPerPage="5" Items="@orders" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+        <HeaderContent>
+            <MudTh>User Name</MudTh>
+            <MudTh>User Address</MudTh>
+            <MudTh>Total</MudTh>
+            <MudTh>Datetime</MudTh>
+            <MudTh>Order Status</MudTh>      
+            <MudTh>Control</MudTh>      
+        </HeaderContent>
+        <RowTemplate>
+                <MudTd DataLabel="Sign" Class="mr-5">@context.UserFullName</MudTd>
+                <MudTd DataLabel="Sign" Class="mr-5">@context.UserAddress</MudTd>
+                <MudTd DataLabel="Sign" Class="mr-5">@context.Total</MudTd>
+                <MudTd DataLabel="Sign" Class="mr-5">@context.DateTime</MudTd>
+                <MudTd DataLabel="Sign" Class="mr-5">@context.OrderStatus</MudTd>             
+                <MudTd DataLabel="Sign">
+                    <a href="/Orderdetail/@context.OrderId">
+                        <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Details" Color="Color.Info">Details</MudButton>
+                    </a>
+                    <a href="/updateorder/@context.OrderId">
+                        <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Update" Color="Color.Warning">Update</MudButton>
+                    </a>
+                    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Update" Color="Color.Error" @onclick="()=>Delete(context.OrderId)">Delete</MudButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <div class="d-flex justify-center">
+                    <MudPagination SelectedChanged="PageChanged" Count="@((_table.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)" Class="pa-4" />
+                </div>
+            </PagerContent>
+        </MudTable>
+}
+
+
