@@ -4,7 +4,9 @@
 
 @if (category == null)
 {
-    <MudText>Loading...</MudText>
+    <div Class="d-flex justify-center">
+        <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+    </div>
 }
 else
 {
@@ -34,6 +36,6 @@ else
     }
     private void Back()
     {
-        _navigationManager.NavigateTo("https://localhost:44398/category");
+        _navigationManager.NavigateTo("https://localhost:5001/Category");
     }
 }

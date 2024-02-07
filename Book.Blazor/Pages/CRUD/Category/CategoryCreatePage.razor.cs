@@ -25,7 +25,7 @@ namespace Book.Blazor.Pages.CRUD.Category
                 // tạo mới rồi tự trờ về trang
                 if (model)
                 {
-                    _navigationManager.NavigateTo("https://localhost:44398/category");
+                    _navigationManager.NavigateTo("https://localhost:5001/category");
                 }
             }
 
@@ -33,7 +33,7 @@ namespace Book.Blazor.Pages.CRUD.Category
         }
         private void Back()
         {
-            _navigationManager.NavigateTo("https://localhost:44398/category");
+            _navigationManager.NavigateTo("https://localhost:5001/category");
         }
     }
 }

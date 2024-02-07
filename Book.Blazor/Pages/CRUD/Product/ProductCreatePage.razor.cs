@@ -24,7 +24,7 @@ namespace Book.Blazor.Pages.CRUD.Product
                 // tạo mới rồi tự trờ về trang
                 if (model)
                 {
-                    _navigationManager.NavigateTo("https://localhost:44398/Product");
+                    _navigationManager.NavigateTo("https://localhost:5001/Product");
                 }
             }
 
@@ -32,7 +32,7 @@ namespace Book.Blazor.Pages.CRUD.Product
         }
         private void Back()
         {
-            _navigationManager.NavigateTo("https://localhost:44398/Product");
+            _navigationManager.NavigateTo("https://localhost:5001/Product");
         }
     }
 }

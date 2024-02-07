@@ -2,7 +2,10 @@
 
 @if (products == null)
 {
-    <MudText>Loading..</MudText>
+    <div Class="d-flex justify-center">
+        <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+    </div>
+
     <MudTable @ref="@_table" RowsPerPage="5" Items="@products" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
         <HeaderContent>
             <MudTh>Name</MudTh>
