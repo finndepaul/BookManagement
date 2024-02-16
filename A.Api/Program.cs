@@ -1,7 +1,11 @@
 ﻿using Book.Api.Context;
+using Book.Api.Entities;
 using Book.Api.IRepositories;
 using Book.Api.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +36,25 @@ builder.Services.AddTransient<ICatagoryRepos, CatagoryRepos>();
 builder.Services.AddTransient<IProductRepos, ProductRepos>();
 builder.Services.AddTransient<IOrderRepos, OrderRepos>();
 builder.Services.AddTransient<IOrderDetailRepos, OrderDetailRepos>();
+builder.Services.AddTransient<IUserRepos, UserRepos>();
+
+// để login
+builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<BookDbContext>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+               .AddJwtBearer(options =>
+               {
+                   options.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateIssuer = true,
+                       ValidateAudience = true,
+                       ValidateLifetime = true,
+                       ValidateIssuerSigningKey = true,
+                       ValidIssuer = builder.Configuration["JwtIssuer"], // thêm builder 
+                       ValidAudience = builder.Configuration["JwtAudience"],
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSecurityKey"]))
+                   };
+               });
 
 var app = builder.Build();
 

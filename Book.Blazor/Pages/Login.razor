@@ -1,0 +1,45 @@
+﻿@page "/Login"
+@using Book.Models.Requests
+@using Book.Blazor.IServices
+@inject IAuthService AuthService
+@inject NavigationManager NavigationManager
+<MudGrid>
+	<MudItem xs="12" sm="7">
+		<MudPaper Class="pa-4">
+			<MudForm>
+				<MudTextField T="string" @bind-Value="US" Label="Username" Required="true" RequiredError="User name is required!" />
+				<MudTextField T="string" @bind-Value="PW" Label="Password" HelperText="Choose a strong password"
+							  InputType="InputType.Password" Required="true"
+							  RequiredError="Password is required!" />
+				<div class="d-flex align-center justify-space-between">
+					<MudButton OnClick="HandleLogin" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Sign in</MudButton>
+				</div>
+			</MudForm>
+		</MudPaper>
+	</MudItem>
+</MudGrid>
+@code {
+	string US;
+	string PW;
+	private bool ShowErrors;
+	LoginRequest request = new LoginRequest();
+	private string Error = "";
+
+	private async Task HandleLogin()
+	{
+		ShowErrors = false;
+		request.UserName = US;
+		request.Password = PW;
+		var result = await AuthService.Login(request);
+		if (result.Successful)
+		{
+			NavigationManager.NavigateTo("https://localhost:5001/Order");
+		}
+		else
+		{
+			ShowErrors = true;
+			Error = result.Error;
+		}
+	}
+}
+
