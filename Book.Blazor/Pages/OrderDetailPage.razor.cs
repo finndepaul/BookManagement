@@ -45,7 +45,7 @@ namespace Book.Blazor.Pages
         }
         private void Back()
         {
-            _navigationManager.NavigateTo("https://localhost:44398/Order");
+            _navigationManager.NavigateTo("https://localhost:5001/Order");
         }
 
     }

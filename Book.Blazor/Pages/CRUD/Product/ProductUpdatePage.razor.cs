@@ -27,13 +27,13 @@ namespace Book.Blazor.Pages.CRUD.Product
                 var model = await _ser.Update(Guid.Parse(ProductId), request);
                 if (model)
                 {
-                    _navigationManager.NavigateTo("https://localhost:44398/Product"); // url page category ở blazor
+                    _navigationManager.NavigateTo("https://localhost:5001/Product"); // url page category ở blazor
                 }
             }
         }
         private void Back()
         {
-            _navigationManager.NavigateTo("https://localhost:44398/Product");
+            _navigationManager.NavigateTo("https://localhost:5001/Product");
         }
     }
 }
